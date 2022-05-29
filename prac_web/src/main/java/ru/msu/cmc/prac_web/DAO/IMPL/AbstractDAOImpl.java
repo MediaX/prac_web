@@ -68,7 +68,18 @@ public abstract class AbstractDAOImpl<T extends CommonEntity> implements Abstrac
     public void update(T entity) {
         try(Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.update(entity);
+//            if (entity instanceof Person) {
+//                Person person = (Person)entity;
+//                Query query = session.createSQLQuery("update person set name = :name" +
+//                                                    "last_name = :last_name" +
+//                                                    "middle_name = :middle_name" +
+//                                                    "email = :email" +
+//                                                    "phone_number = :phone_number" +
+//                                                    "loyalty_programm_cards = :lpc" +
+//                                                    "where person.person_id = :person_id");
+//            } else {
+                session.update(entity);
+//            }
             session.getTransaction().commit();
         }
     }
@@ -90,4 +101,5 @@ public abstract class AbstractDAOImpl<T extends CommonEntity> implements Abstrac
             session.getTransaction().commit();
         }
     }
+
 }

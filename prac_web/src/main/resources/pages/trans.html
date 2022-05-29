@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <title>Аэропорты</title>
+</head>
+<body>
+<!-- Navigation Panel -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">История транзакций</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/person">Клиенты</a>
+                <a class="nav-link active" aria-current="page" href="/flights">Авиарейсы</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--&lt;!&ndash; Search form &ndash;&gt;-->
+
+<h1>Поиск транзакции</h1>
+<form action="#" th:action="@{trans/trans_filtered}" th:object="${filter}" method="post">
+    <p>ID транзакции: <input id="clientName" type="text" th:field="*{transaction_id}"/></p>
+    <p>Время транзакции: <input id="clientLastName" type="text" th:field="*{transaction_day_time}"/></p>
+    <p>Электронна почта: <input id="clientPhone" type="text" th:field="*{person_id.email}"/></p>
+    <button id="searchButton" type="submit" class="btn btn-outline-secondary">Найти</button>
+</form>
+
+<!-- get all clients -->
+<!--<div class="list-group">-->
+<!--    <div th:each="airport : ${airport}">-->
+<!--        <a id="airportId" th:href="@{/airport/{id}(id=${client.getId()})}" class="list-group-item list-group-item-action" th:text="${client.getName()}">client</a>-->
+<!--    </div>-->
+<!--</div>-->
+<form method="get" action="trans_new">
+    <button id="createButton" type="submit" class="btn btn-outline-success">Добавить</button>
+</form>
+<div>
+    <div th:each="trans : ${trans}">
+        <p th:text="'ID транзакции: ' + ${trans.getTransaction_id()} + '; ' +
+                'Имя: ' + ${trans.getPerson_id().getName()} + '; ' +
+                'Фамилия: ' + ${trans.getPerson_id().getLast_name()} + '; ' +
+                'Номер рейса: ' + ${trans.getFlight_id().getFlight_no()} + '; ' +
+                'Дата рейса: ' + ${trans.getFlight_id().getDep_time()} + '; ' +
+                'ID билета: ' + ${trans.getTicket_id().getTicket_id()} + '; ' +
+                'Стоимость билета: ' + ${trans.getTicket_id().getPrice()} + '; ' +
+                'Дата транзакции: ' + ${trans.getTransaction_day_time()}">
+        </p>
+    </div>
+</div>
+<!--&lt;!&ndash; button for create client &ndash;&gt;-->
+</body>
+</html>
